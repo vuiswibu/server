@@ -109,7 +109,7 @@ public class SQLHandler {
                     + "VALUES(?,?,?,?)");
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getNickname());
+            preparedStatement.setString(3, "N" +user.getNickname());
             preparedStatement.setString(4, user.getAvatar());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
