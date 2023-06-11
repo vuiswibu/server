@@ -156,12 +156,34 @@ public class Client implements Runnable{
                     for (Client client : RunServer.clientmanager.getListServerThreads()) {
                         if(number>8) break;
                         if (client.room != null && client.room.getNumberOfUser() == 1) {
-                            res += client.room.getID() + "," + client.room.getPassword() + ",";
+                            res += client.room.getID() + "," +client.room.getUser1().getUser().getNickname()+"," + client.room.getPassword() + ",";
                         }
                         number++;
                     }
                     write(res);
                     System.out.println(res);
+                }
+               //xử lý xem danh sách client
+                if (messageSplit[0].equals("view-client")) {
+                    String res = "client-list,";
+                    String room = "";
+                    for (Client client : RunServer.clientmanager.getListServerThreads()) {
+                        if (client.getRoom() == null) {
+                            room = null;
+                        } else {
+                            room = "" + client.getRoom().getID();
+                        }
+                        if (client.getUser() != null) {
+                            res +="User: " + client.getUser().getNickname() + " Room: " + room+",";
+                        }
+                    }
+                    write(res);
+                    System.out.println(res);
+                 }
+                //Xử lý chat toàn server
+                if(messageSplit[0].equals("chat-server")){
+                    RunServer.clientmanager.boardCast(clientNumber,messageSplit[0]+","+ user.getNickname()+" : "+ messageSplit[1]);
+                    RunServer.host.addMessage("["+user.getID()+"] "+user.getNickname()+" : "+ messageSplit[1]);
                 }
                 //Xử lý tạo phòng
                 if (messageSplit[0].equals("create-room")) {
