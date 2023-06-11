@@ -101,6 +101,27 @@ public class SQLHandler {
         }
         return false; // nếu không bị ban
     }
+    public boolean checkIsFriend(int ID1, int ID2) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Friend.ID_User1\n"
+                    + "FROM friend\n"
+                    + "WHERE (ID_User1 = ? AND ID_User2 = ?)\n"
+                    + "OR (ID_User1 = ? AND ID_User2 = ?)");
+            preparedStatement.setInt(1, ID1);
+            preparedStatement.setInt(2, ID2);
+            preparedStatement.setInt(3, ID2);
+            preparedStatement.setInt(4, ID1);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
     // Thêm tài khoản
     public void addUser(User user) {
         try {

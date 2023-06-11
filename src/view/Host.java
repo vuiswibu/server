@@ -12,12 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -158,8 +156,18 @@ public class Host extends javax.swing.JFrame implements Runnable {
 
         jButton4.setText("Gửi");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -344,7 +352,16 @@ public class Host extends javax.swing.JFrame implements Runnable {
         band = new Band(number,this);
         band.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    private void sendMessage(){
+        String message = jTextField1.getText();
+        if(message.length()==0) return;
+        String temp = jTextArea1.getText();
+        temp+= "Thông báo từ máy chủ : "+message+"\n";
+        jTextArea1.setText(temp);
+        jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
+        RunServer.clientmanager.boardCast(-1,"chat-server,Thông báo từ máy chủ : "+ message);
+        jTextField1.setText("");
+    }
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         try {
             Desktop.getDesktop().open(new File("cat/Facebook_225.mp4"));
@@ -353,6 +370,16 @@ public class Host extends javax.swing.JFrame implements Runnable {
         }
 
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        sendMessage();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            sendMessage();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments
