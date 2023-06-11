@@ -145,6 +145,7 @@ public class Client implements Runnable{
                     User changeprofile = new User(idofuser, messageSplit[2], messageSplit[3]);
                     sqlhandler.chagnePro(changeprofile);  
                 }
+
                 //sắp xếp rank
                 if(messageSplit[0].equals("get-rank-charts")){
                     List<User> ranks = sqlhandler.getUserStaticRank();
