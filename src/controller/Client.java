@@ -127,8 +127,9 @@ public class Client implements Runnable{
                 }
                 //Chỉnh sửa profile
                 if(messageSplit[0].equals("change_profile")){
-                    User userchangeprofile = new User(messageSplit[1], messageSplit[2], messageSplit[3]);
-                    sqlhandler.chagneProfile(userchangeprofile);  
+                    int idofuser = Integer.parseInt(messageSplit[1]);
+                    User changeprofile = new User(idofuser, messageSplit[2], messageSplit[3]);
+                    sqlhandler.chagnePro(changeprofile);  
                 }
                 //sắp xếp rank
                 if(messageSplit[0].equals("get-rank-charts")){

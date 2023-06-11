@@ -54,29 +54,15 @@ public class SQLHandler {
         return null;
     }
     //Thay đổi thông tin
-    public User chagneProfile(User user) {
+    public User chagnePro(User user) {
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT *\n"
-                    + "FROM \"user\"\n"
-                    + "WHERE username = ?\n"
-                    + "AND pass = ?");
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next()) {
-                return new User(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getInt(8),
-                        (rs.getInt(9) != 0), //is playing
-                        (rs.getInt(10) != 0));
-                        //getRank(rs.getInt(1)));    
-            }
-            
+            PreparedStatement preparedStatement = conn.prepareStatement(  "Update \"user\"\n"
+                        + "set \"user\".nickname = ?, \"user\".avatar = ?\n"
+                        + "where \"user\".ID = ?");
+            preparedStatement.setString(1, user.getNickname());
+            preparedStatement.setInt(2, Integer.parseInt(user.getAvatar()));
+            preparedStatement.setInt(3, user.getID());
+            preparedStatement.executeUpdate();           
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
