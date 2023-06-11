@@ -14,9 +14,9 @@ public class ConnectSQL {
     
     public Connection getConnection(){
         Connection conn=null;
-        String jdbcURL = "jdbc:sqlserver://LAPTOP-C7FI6G26\\MAYAO:1433;databaseName=Account;encrypt=true;trustServerCertificate=true;";
+        String jdbcURL = "jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=caro_acc;encrypt=true;trustServerCertificate=true;";
         String jdbcUsername = "sa";
-        String jdbcPassword = "";
+        String jdbcPassword = "123";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);

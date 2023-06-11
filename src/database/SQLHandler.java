@@ -53,6 +53,38 @@ public class SQLHandler {
         }
         return null;
     }
+    //Thay đổi thông tin
+    public User chagneProfile(User user) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT *\n"
+                    + "FROM \"user\"\n"
+                    + "WHERE username = ?\n"
+                    + "AND pass = ?");
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        (rs.getInt(9) != 0), //is playing
+                        (rs.getInt(10) != 0));
+                        //getRank(rs.getInt(1)));    
+            }
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    //
     // Kiểm tra ban
     public boolean checkIsBanned(User user){
         try {

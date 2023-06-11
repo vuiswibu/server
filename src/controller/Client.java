@@ -125,6 +125,11 @@ public class Client implements Runnable{
                        write("login-success,"+getStringFromUser(this.user));
                    }
                 }
+                //Chỉnh sửa profile
+                if(messageSplit[0].equals("change_profile")){
+                    User userchangeprofile = new User(messageSplit[1], messageSplit[2], messageSplit[3]);
+                    sqlhandler.chagneProfile(userchangeprofile);  
+                }
                 //sắp xếp rank
                 if(messageSplit[0].equals("get-rank-charts")){
                     List<User> ranks = sqlhandler.getUserStaticRank();

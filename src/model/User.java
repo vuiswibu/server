@@ -92,6 +92,12 @@ public class User {
         this.nickname = nickname;
         this.avatar = avatar;
     }
+    
+    public User(int ID, String nickname, String avatar) {
+        this.ID = ID;
+        this.nickname = nickname;
+        this.avatar = avatar;
+    }
 
     public int getID() {
         return ID;
