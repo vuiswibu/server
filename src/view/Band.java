@@ -51,7 +51,7 @@ public class Band extends javax.swing.JFrame {
                 int number=0;
                 if (!jTextField1.getText().isEmpty()) {
                     number = Integer.parseInt(jTextField1.getText());
-                    jTextField2.setText(sqlhandler.GetUsername(number));    
+                    jTextField2.setText(sqlhandler.getNickNameByID(number));    
                 }
                 else{
                     jTextField2.setText("");    
@@ -109,7 +109,7 @@ public class Band extends javax.swing.JFrame {
 
         jLabel1.setText("ID");
 
-        jLabel2.setText("Username");
+        jLabel2.setText("NickName");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,6 +199,7 @@ public class Band extends javax.swing.JFrame {
             user.setID(userId);
             sqlhandler.updateBannedStatus(user, true);
             Client client = RunServer.clientmanager.getServerThreadByUserID(userId);//lấy client muốn cút
+            client.write("banned-notice,"+jComboBox1.getSelectedItem());
             //nếu đang trong phòng thì đuổi
             if(client.getRoom()!=null){
                 Room room = client.getRoom(); //lấy room mà client đang ỉa
@@ -213,7 +214,6 @@ public class Band extends javax.swing.JFrame {
                 client.setRoom(null); 
             }
             RunServer.host.addMessage("User có ID "+ userId+" đã bị BAN");
-            client.setUser(null);
             RunServer.clientmanager.boardCast(-1, "chat-server,"+"User có ID "+ userId+" đã bị BAN");
             JOptionPane.showMessageDialog(rootPane, "Đã BAN user "+userId);
         } catch (Exception e) {
