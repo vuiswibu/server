@@ -203,7 +203,24 @@ public class Client implements Runnable{
                     }
                     write(res);
                     System.out.println(res);
-                 }
+                }
+                 //Xử lý yêu cầu kết bạn
+                if (messageSplit[0].equals("make-friend")){
+                    RunServer.clientmanager.getServerThreadByUserID(Integer.parseInt(messageSplit[1]))
+                            .write("make-friend-request,"+this.user.getID()+","+sqlhandler.getNickNameByID(this.user.getID()));
+                }
+                //Xử lý lấy thông tin kết bạn và rank
+                if(messageSplit[0].equals("check-friend")){
+                    String res = "check-friend-response,";
+                    res += (sqlhandler.checkIsFriend(this.user.getID(), Integer.parseInt(messageSplit[1]))?1:0);
+                    write(res);
+                }
+                //Xử lý xác nhận kết bạn
+                if(messageSplit[0].equals("make-friend-confirm")){
+                    sqlhandler.makeFriend(this.user.getID(), Integer.parseInt(messageSplit[1]));
+                    RunServer.clientmanager.getServerThreadByUserID(Integer.parseInt(messageSplit[1]))                           
+                    .write("Friend-request-accepted");//trả về lại thằng đã gửi yêu cầu kết bạn rằng bạn đã kết bạn thành công
+                }
                 //Xử lý chat toàn server
                 if(messageSplit[0].equals("chat-server")){
                     RunServer.clientmanager.boardCast(clientNumber,messageSplit[0]+","+ user.getNickname()+" : "+ messageSplit[1]);

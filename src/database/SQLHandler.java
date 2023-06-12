@@ -168,7 +168,18 @@ public class SQLHandler {
         }
         return false;
     }
-    
+    public void makeFriend(int ID1, int ID2) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO friend(ID_User1,ID_User2)\n"
+                    + "VALUES(?,?)");
+            preparedStatement.setInt(1, ID1);
+            preparedStatement.setInt(2, ID2);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     //Thay đổi trạng thái thành online
     public void updateToOnline(int ID) {
         try {
