@@ -60,8 +60,22 @@ public class SQLHandler {
                         + "set \"user\".nickname = ?, \"user\".avatar = ?\n"
                         + "where \"user\".ID = ?");
             preparedStatement.setString(1, user.getNickname());
+            System.out.println(user.getAvatar());
             preparedStatement.setInt(2, Integer.parseInt(user.getAvatar()));
             preparedStatement.setInt(3, user.getID());
+            preparedStatement.executeUpdate();           
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    //Thay đổi password
+    public User chagnePass(User user) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(  "UPdate \"user\" Set \"user\".pass = ? where \"user\".ID= ?");
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setInt(2, user.getID());
             preparedStatement.executeUpdate();           
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -138,6 +152,23 @@ public class SQLHandler {
         }
         return false;
     }
+    //Kiểm tra mật khẩu có đúng hay không
+    public boolean checkDupPass(int ID ,String password){
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("Select \"user\".pass from \"user\" where \"user\".ID = ? and \"user\".pass= ?"  );
+            preparedStatement.setInt(1, ID);
+            preparedStatement.setString(2, password);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }  
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     //Thay đổi trạng thái thành online
     public void updateToOnline(int ID) {
         try {

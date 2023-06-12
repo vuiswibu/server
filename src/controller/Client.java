@@ -111,6 +111,20 @@ public class Client implements Runnable{
                         write("banned-user,"+messageSplit[1]+","+messageSplit[2]);
                     }
                 }
+                //Xác minh và thay đổi mật khẩu
+                if(messageSplit[0].equals("vpass")){ 
+                    System.out.println(message);
+                    int idofuser = Integer.parseInt(messageSplit[1]);
+                    boolean pass1 = sqlhandler.checkDupPass(idofuser , messageSplit[2]);
+                    if(pass1==true)
+                    {
+                        User changepass = new User(messageSplit[3],idofuser );
+                        sqlhandler.chagnePass(changepass);
+                    }
+                    else{
+                        write("duppassword,"+messageSplit[2]+","+messageSplit[3]);
+                    }
+                }
                 // Đăng kí 
                 if(messageSplit[0].equals("register")){
                    boolean checkdup = sqlhandler.checkDuplicated(messageSplit[1]);

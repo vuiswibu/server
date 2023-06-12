@@ -13,6 +13,7 @@ public class User {
     private int ID;
     private String username;
     private String password;
+    private String npassword;
     private String nickname;
     private String avatar;
     private int numberOfGame;
@@ -72,7 +73,11 @@ public class User {
         this.nickname = nickname;
     }
 
-    
+    public User( String password, int ID) {
+        this.ID = ID;
+        this.password = password;
+    }
+
 
     public User(int ID, String nickname, boolean isOnline, boolean isPlaying) {
         this.ID = ID;
@@ -85,19 +90,19 @@ public class User {
         this.username = username;
         this.password = password;
     }
+    
+    public User(int ID, String nickname, String avatar) {
+        this.ID = ID;
+        this.nickname = nickname;
+        this.avatar=avatar;
+    }
 
     public User(String username, String password, String nickname, String avatar) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.avatar = avatar;
-    }
-    
-    public User(int ID, String nickname, String avatar) {
-        this.ID = ID;
-        this.nickname = nickname;
-        this.avatar = avatar;
-    }
+    }    
 
     public int getID() {
         return ID;
@@ -167,14 +172,7 @@ public class User {
     public void setIsPlaying(boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
-
-    public User(int ID, String nickname, int numberOfGame, int numberOfDraw) {
-        this.ID = ID;
-        this.nickname = nickname;
-        this.numberOfGame = numberOfGame;
-        this.numberOfDraw = numberOfDraw;
-    }
-
+    
     public int getNumberOfDraw() {
         return numberOfDraw;
     }
