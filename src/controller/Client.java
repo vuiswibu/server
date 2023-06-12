@@ -185,18 +185,21 @@ public class Client implements Runnable{
                     System.out.println(res);
                 }
                //xử lý xem danh sách client
-                if (messageSplit[0].equals("view-client")) {
-                    String res = "client-list,";
+                if (messageSplit[0].equals("view-user")) {
+                    String res = "user-list,";
                     String room = "";
                     for (Client client : RunServer.clientmanager.getListServerThreads()) {
-                        if (client.getRoom() == null) {
-                            room = null;
-                        } else {
-                            room = "" + client.getRoom().getID();
-                        }
-                        if (client.getUser() != null) {
-                            res +="User: " + client.getUser().getNickname() + " Room: " + room+",";
-                        }
+//                        if (client.getRoom() == null) {
+//                            room = null;
+//                        } else {
+//                            room = "" + client.getRoom().getID();
+//                        }
+//                        if (client.getUser() != null) {
+//                            res +="User: " + client.getUser().getNickname() + " Room: " + room+",";
+//                        }
+                        if (client.getUser() != null){
+                            res += getStringFromUser(client.getUser())+",";
+                        }    
                     }
                     write(res);
                     System.out.println(res);
