@@ -285,6 +285,17 @@ public class Client implements Runnable{
                         }
                     }
                 }
+                if(messageSplit[0].equals("draw-request")){
+                    room.getCompetitor(clientNumber).write(message);
+                }
+                 if(messageSplit[0].equals("draw-confirm")){
+                    room.increaseNumberOfDraw();
+                    room.increaseNumberOfGame();
+                    room.boardCast("draw-game,");
+                }
+                if(messageSplit[0].equals("draw-refuse")){
+                    room.getCompetitor(clientNumber).write("draw-refuse,");
+                }
                 //hủy phòng
                 if (messageSplit[0].equals("cancel-room")) {
                     sqlhandler.updateToNotPlaying(this.user.getID());

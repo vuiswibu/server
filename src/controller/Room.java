@@ -94,10 +94,10 @@ public class Room {
         sqlhandler.addGame(user2.getUser().getID());
     }
     
-//    public void increaseNumberOfDraw(){
-//        sqlhandler.addDrawGame(user1.getUser().getID());
-//        sqlhandler.addDrawGame(user2.getUser().getID());
-//    }
+    public void increaseNumberOfDraw(){
+        sqlhandler.addDrawGame(user1.getUser().getID());
+        sqlhandler.addDrawGame(user2.getUser().getID());
+    }
     
     public void decreaseNumberOfGame(){
         sqlhandler.decreaseGame(user1.getUser().getID());

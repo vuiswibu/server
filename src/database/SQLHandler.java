@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package database;
 
 import java.sql.*;
@@ -60,7 +57,6 @@ public class SQLHandler {
                         + "set \"user\".nickname = ?, \"user\".avatar = ?\n"
                         + "where \"user\".ID = ?");
             preparedStatement.setString(1, user.getNickname());
-            System.out.println(user.getAvatar());
             preparedStatement.setInt(2, Integer.parseInt(user.getAvatar()));
             preparedStatement.setInt(3, user.getID());
             preparedStatement.executeUpdate();           
@@ -174,7 +170,6 @@ public class SQLHandler {
                     + "VALUES(?,?)");
             preparedStatement.setInt(1, ID1);
             preparedStatement.setInt(2, ID2);
-            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -351,7 +346,6 @@ public class SQLHandler {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return -1;
@@ -359,12 +353,11 @@ public class SQLHandler {
     
      public void addDrawGame(int ID){
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("UPDATE user\n"
-                    + "SET user.NumberOfDraw = ?\n"
-                    + "WHERE user.ID = ?");
+            PreparedStatement preparedStatement = conn.prepareStatement("UPDATE \"user\"\n"
+                    + "SET \"user\".NumberOfDraw = ?\n"
+                    + "WHERE \"user\".ID = ?");
             preparedStatement.setInt(1, new SQLHandler().getNumberOfDraw(ID)+1);
             preparedStatement.setInt(2, ID);
-            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -378,7 +371,6 @@ public class SQLHandler {
                     + "WHERE \"user\".ID = ?");
             preparedStatement.setInt(1, new SQLHandler().getNumberOfWin(ID)+1);
             preparedStatement.setInt(2, ID);
-            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
