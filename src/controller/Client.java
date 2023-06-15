@@ -143,6 +143,8 @@ public class Client implements Runnable{
                 if(messageSplit[0].equals("change_profile")){
                     int idofuser = Integer.parseInt(messageSplit[1]);
                     User changeprofile = new User(idofuser, messageSplit[2], messageSplit[3]);
+                    this.user.setAvatar(messageSplit[3]);
+                    this.user.setNickname(messageSplit[2]);
                     sqlhandler.chagnePro(changeprofile);  
                 }
 
@@ -288,13 +290,22 @@ public class Client implements Runnable{
                 if(messageSplit[0].equals("draw-request")){
                     room.getCompetitor(clientNumber).write(message);
                 }
-                 if(messageSplit[0].equals("draw-confirm")){
+                if(messageSplit[0].equals("draw-confirm")){
                     room.increaseNumberOfDraw();
                     room.increaseNumberOfGame();
                     room.boardCast("draw-game,");
                 }
                 if(messageSplit[0].equals("draw-refuse")){
                     room.getCompetitor(clientNumber).write("draw-refuse,");
+                }
+                if(messageSplit[0].equals("undo-request")){
+                    room.getCompetitor(clientNumber).write(message);
+                }
+                 if(messageSplit[0].equals("undo-confirm")){
+                    room.boardCast("undo-game,");
+                }
+                if(messageSplit[0].equals("undo-refuse")){
+                    room.getCompetitor(clientNumber).write("undo-refuse,");
                 }
                 //hủy phòng
                 if (messageSplit[0].equals("cancel-room")) {

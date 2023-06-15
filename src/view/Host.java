@@ -40,7 +40,7 @@ public class Host extends javax.swing.JFrame implements Runnable {
         }catch(Exception e){
             
         }
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        //this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
