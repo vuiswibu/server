@@ -58,7 +58,6 @@ public class RunServer {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-            System.out.println("cac");
         } finally {
             try {
                 listener.close();
