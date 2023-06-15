@@ -168,7 +168,7 @@ public class Band extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if(jTextField1.getText().length()==0){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
+                JOptionPane.showMessageDialog(rootPane, "Please enter the User ID");
                 return;
             }
             int userId = Integer.parseInt(jTextField1.getText());
@@ -176,7 +176,7 @@ public class Band extends javax.swing.JFrame {
             user.setID(userId);
             sqlhandler.updateBannedStatus(user, false);
             jTextField1.setText("");
-            JOptionPane.showMessageDialog(rootPane, "Đã huỷ BAN user "+userId);
+            JOptionPane.showMessageDialog(rootPane, "User ban has been revoked : "+userId);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra");
         }
@@ -186,11 +186,11 @@ public class Band extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
          try {
             if(jTextField1.getText().length()==0){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
+                JOptionPane.showMessageDialog(rootPane, "Please enter the User ID");
                 return;
             }
             if(jComboBox1.getSelectedIndex()<1){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn lý do");
+                JOptionPane.showMessageDialog(rootPane, "Please choose reasons");
                 return;
             }
             int userId = Integer.parseInt(jTextField1.getText());
@@ -212,9 +212,9 @@ public class Band extends javax.swing.JFrame {
                 }
                 client.setRoom(null); 
             }
-            RunServer.host.addMessage("User có ID "+ userId+" đã bị BAN");
-            RunServer.clientmanager.boardCast(-1, "chat-server,"+"User có ID "+ userId+" đã bị BAN");
-            JOptionPane.showMessageDialog(rootPane, "Đã BAN user "+userId);
+            RunServer.host.addMessage("User with ID "+ userId+" has been banned");
+            RunServer.clientmanager.boardCast(-1, "chat-server,"+"User with ID "+ userId+" has been banned");
+            JOptionPane.showMessageDialog(rootPane, "User has been banned "+userId);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra");
         }
@@ -223,16 +223,16 @@ public class Band extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             if(jTextField1.getText().length()==0){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
+                JOptionPane.showMessageDialog(rootPane, "Please enter the User ID");
                 return;
             }
             if(jComboBox1.getSelectedIndex()<1){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn lý do");
+                JOptionPane.showMessageDialog(rootPane, "Please choose reasons");
                 return;
             }
             int userId = Integer.parseInt(jTextField1.getText());
             RunServer.clientmanager.sendMessageToUserID(userId, "warning-notice,"+jComboBox1.getSelectedItem());
-            JOptionPane.showMessageDialog(rootPane, "Đã cảnh cáo user "+userId);
+            JOptionPane.showMessageDialog(rootPane, "User "+userId+" has been warned");
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra");

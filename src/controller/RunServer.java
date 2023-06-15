@@ -1,14 +1,12 @@
 package controller;
 
 
-import database.SQLHandler;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import model.User;
 import view.Host;
 
 /*
@@ -60,6 +58,7 @@ public class RunServer {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
+            System.out.println("cac");
         } finally {
             try {
                 listener.close();

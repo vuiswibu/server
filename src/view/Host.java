@@ -7,6 +7,7 @@ package view;
 import controller.Client;
 import controller.Room;
 import controller.RunServer;
+import database.SQLHandler;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +31,8 @@ public class Host extends javax.swing.JFrame implements Runnable {
     public static Band band;
     private DefaultListModel<String> listModel;
     DefaultTableModel defaultTableModel;
+    private SQLHandler sqlhandler;
+    
     /**
      * Creates new form Host
      */
@@ -40,12 +44,14 @@ public class Host extends javax.swing.JFrame implements Runnable {
         }catch(Exception e){
             
         }
-        //this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
         listModel= new DefaultListModel<>();
         listrooms = new ArrayList<>();
+        
+        sqlhandler = new SQLHandler();
         
         jList1.setModel(listModel);
         defaultTableModel = (DefaultTableModel) jTable1.getModel();
@@ -59,6 +65,20 @@ public class Host extends javax.swing.JFrame implements Runnable {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.LEFT );
         jTable1.setDefaultRenderer(Integer.class, centerRenderer);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                int option = JOptionPane.showConfirmDialog(rootPane, "Are you sure to close this window?", "Really Closing?", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    for(Client client : RunServer.clientmanager.getListServerThreads()){
+                        sqlhandler.updateToOffline(client.getUser().getID());
+                        sqlhandler.updateToNotPlaying(client.getUser().getID());
+                    }
+                    System.exit(0);
+                }
+
+            }
+        });
     }
 
         
@@ -116,7 +136,7 @@ public class Host extends javax.swing.JFrame implements Runnable {
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 255, 255));
         kGradientPanel1.setkGradientFocus(600);
@@ -356,10 +376,10 @@ public class Host extends javax.swing.JFrame implements Runnable {
         String message = jTextField1.getText();
         if(message.length()==0) return;
         String temp = jTextArea1.getText();
-        temp+= "Thông báo từ máy chủ : "+message+"\n";
+        temp+= "Server notification : "+message+"\n";
         jTextArea1.setText(temp);
         jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
-        RunServer.clientmanager.boardCast(-1,"chat-server,Thông báo từ máy chủ : "+ message);
+        RunServer.clientmanager.boardCast(-1,"chat-server,Server notification : "+ message);
         jTextField1.setText("");
     }
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
