@@ -45,6 +45,7 @@ public class Host extends javax.swing.JFrame implements Runnable {
             
         }
 //        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setTitle("Server");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         

@@ -110,6 +110,8 @@ public class Band extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ID");
 
+        jTextField2.setEditable(false);
+
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("NickName");
 
